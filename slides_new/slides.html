@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reproducibility and Statistical Software Development</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Wangqian (Will) Ju" />
+    <meta name="date" content="2023-10-10" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/csafe.css" type="text/css" />
+    <link rel="stylesheet" href="css/csafe-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/this-presentation.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+background-image: url("images/title-slide-bkgd.png")
+
+
+&lt;br&gt; &lt;/br&gt;
+
+## Reproducibility and Statistical Software Development
+
+### Oral Preliminary Exam
+
+#### Wangqian (Will) Ju
+
+#### Iowa State University: Center for Statistics and Applications in Forensic Evidence
+
+#### 2023-10-10
+
+
+
+
+
+---
+
+## About Me
+
+- Undergraduate at University of California - Davis, CA, 2015-2019
+
+  - B.Sc. in Statistics and Minor in Computer Science
+  
+- Graduate at Iowa State University, 2019-present
+
+  - Summer 2021: received M.Sc. in Statistics
+  - Summer 2021: passed the written preliminary exam
+  
+- Machine Learning Intern at Adobe
+
+  - Summer 2022
+  - Summer 2023
+  
+- Future: Hope to work as a Data Scientist or Machine Learning Engineer 
+
+---
+
+# Outline
+
+- **Introduction** Reproducibility
+
+- **Paper \#1** An Open-Source Implementation of the CMPS Algorithm for Assessing Similarity of Bullets
+
+- **Paper \#2** One Model that Fits Them All: Psychometrics with Generalized Linear Mixed Effects Models
+
+- **Paper \#3** `ggpaintr`: Building Modularized Shiny Apps for Reactive Plotting
+
+- **Conclusions**
+
+---
+
+class: center, middle
+
+# Introduction
+
+## Reproducibility: What, Why, How
+
+---
+
+## Reproducibility: What
+
+
+---
+
+## Reproducibility: Why
+
+---
+
+## Reproducibility: How
+
+---
+
+## Reproducibility: Challenges
+
+---
+
+## Reproducibility and Statistical Software Development
+
+1. **Reproduced results qualitatively**: An Open-Source Implementation of the CMPS Algorithm for Assessing Similarity of Bullets
+
+2. **Reproduced results quantitatively and obtained new findings through re-analysis**: One Model that Fits Them All: Psychometrics with Generalized Linear Mixed Effects Models
+
+3. **Tools that can facilitate reproducible research**: `ggpaintr`: Building Modularized Shiny Apps for Reactive Plotting
+
+---
+
+class: center, middle
+
+## An Open-Source Implementation of the CMPS Algorithm for Assessing Similarity of Bullets
+
+#### Ju &amp; Hofmann, "The R Journal: An Open-Source Implementation of the CMPS Algorithm for Assessing Similarity of Bullets", The R Journal, 2022
+
+---
+
+## Motivation
+
+- An attempt to reproduce the work of [Che+19]
+
+- The Congruent Matching Profile Segments (CMPS) algorithm developed by National Institute of Standards and Technology (NIST) for objective comparison of striated tool marks
+
+- The description of the algorithm is provided in the paper
+
+- Code and data are not available
+
+---
+
+## Background
+
+**Firearm Examination - Comparison of bullets**
+
+-   Land-engraved striation marks
+
+-   Visual comparison: comparison microscope, professional skills
+
+-   Bullet signatures
+.img100[![](photos/barrel_bullet_ps.png)]
+
+---
+
+## Background
+
+**Bullet signature**
+
+-   Hare et al. (2017) [HHC17]
+
+-   3D topographical images, x3p
+
+-   Shiny app: `bulletInspectR`
+.img75[![](img/figure1_v2.PNG)]
+
+---
+
+## Background
+
+**Bullet signature**
+
+-   crosscut, grooves, and profile of land engravings -- (a, b, c, d)
+
+-   non-parametric LOESS smooth for the curvature to be removed [CGS91] -- (e)
+
+-   bullet signature -- (f)
+.img75[![](img/figure1_v2.PNG)]
+
+---
+
+## Background
+
+**Examples of bullet signature**
+-   two bullets fired from the same Ruger p-85 pistal barrel
+
+-   known match comparison
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+---
+
+## CMPS algorithm
+
+-   Congruent Matching Profile Segments (CMPS) algorithm [Che+19]
+
+-   Objective comparison of striated tool marks (bullet signatures in our case)
+
+-   CMPS score (a similarity score)
+
+---
+
+## CMPS algorithm
+
+CMPS scores
+-   bullet 1 - land 2 (1-2) vs bullet 2 - land 3 (2-3): 17
+-   bullet 1 - land 2 (1-2) vs bullet 2 - land 4 (2-4): 1
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+---
+
+## CMPS algorithm
+
+-   Comparison signature:
+  -   Divided into consecutive and non-overlapping basis segments
+-   Reference signature:
+  -   Generate cross-correlation curves with basis segments
+
+.img100[![](images/cmps_overview.jpg)]
+
+.footer[plot cited from Chen et al. 2019]
+
+---
+ 
+## CMPS algorithm
+
+-   Congruent registration position
+  -   Based on cross-correlation values
+  -   Identified as the "best" registration position by the majority of basis segments (position 0 in the plot)
+
+.img100[![](images/cmps_overview.jpg)]
+
+.footer[plot cited from Chen et al. 2019]
+
+
+---
+ 
+## CMPS algorithm
+  
+-   Congruent matching profile segments
+  -   Basis segments taking the congruent registration position
+  -   There are 5 congruent matching profile segments in this plot
+  -   Final CMPS score: total number of congruent matching profile segments
+
+.img100[![](images/cmps_overview.jpg)]
+
+.footer[plot cited from Chen et al. 2019]
+
+---
+ 
+## CMPS algorithm
+
+To make the CMPS algorithm more effective:
+
+-   Multi-peak inspection:
+
+  -   Each cross-correlation curve will contribute multiple peak positions
+
+-   Multi-segment lengths strategy
+
+  -   Both basis segments and their enlarged version will be used for calculating the cross-correlation curves
+
+-   Different parameter settings in the algorithm
+
+
+---
+ 
+## Implementation
+
+**cmpsR**
+
+-   R package
+
+```r
+install.packages("cmpsR")
+```
+
+-   development version available on GitHub:  
+
+```r
+# install.packages("devtools")
+devtools::install_github("willju-wangqian/CMPS")
+```
+
+- The website of the package: [https://willju-wangqian.github.io/CMPS/](https://willju-wangqian.github.io/CMPS/)
+
+---
+ 
+## Implementation
+
+The main function:
+
+
+```r
+extract_feature_cmps(
+  x,
+  y,
+  seg_length = 50,
+  Tx = 25,
+   npeaks_set = c(5, 3, 1),
+  include = NULL,
+  outlength = NULL
+)
+```
+
+-   `x` and `y` are the comparison signature and reference signature, respectively
+
+-   `seg_length` specifies the length of a basis segment
+
+-   ` npeaks_set` controls whether or not to use multi-segment lengths strategy
+
+---
+ 
+## Implementation - Examples
+
+
+```r
+library(CMPS)
+data(bullets)
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+-   Known match (KM) comparison: `1-2` vs `2-3`
+-   Known non match (KNM) comparison: `1-2` vs `2-4`
+
+---
+ 
+## Implementation - Examples 
+
+**Example 1**
+
+
+```r
+library(cmpsR)
+data(bullets)
+
+sig1 &lt;- bullets$sigs[bullets$bulletland == "1-2"][[1]]$sig
+sig2 &lt;- bullets$sigs[bullets$bulletland == "2-3"][[1]]$sig
+sig3 &lt;- bullets$sigs[bullets$bulletland == "2-4"][[1]]$sig
+
+cmps.result.KM &lt;- extract_feature_cmps(sig1, sig2)
+cmps.result.KNM &lt;- extract_feature_cmps(sig1, sig3)
+```
+
+-   Result of a known-match (KM) comparison:
+
+```r
+cmps.result.KM # 1-2 vs 2-3
+#&gt; [1] 17
+```
+
+-   Result of a known-non-match (KNM) comparison:
+
+```r
+cmps.result.KNM # 1-2 vs 2-4
+#&gt; [1] 1
+```
+
+---
+ 
+## Implementation - Examples
+
+**Example 2**
+
+
+```r
+cmps_without_multi_scale &lt;- 
+  extract_feature_cmps(sig1, sig2, 
+                       npeaks_set = 5, include = "full_result")
+
+cmps_with_multi_scale &lt;- 
+  extract_feature_cmps(sig1, sig2, 
+                       npeaks_set = c(5,3,1), include = "full_result")
+```
+
+-   multi-peak inspection:
+
+```r
+cmps_without_multi_scale$CMPS_score
+#&gt; [1] 20
+```
+
+-   multi-peak inspection with multi-segment lengths strategy:
+
+```r
+cmps_with_multi_scale$CMPS_score
+#&gt; [1] 17
+```
+
+
+---
+ 
+## Implementation
+
+Full comparison of the two bullets in `CMPS::bullets`
+
+
+
+
+
+
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+-   each bullet has 6 land engravings, providing 6 bullet signatures
+-   36 pairwise land-by-land comparisons in total
+
+---
+ 
+## Metrics 
+
+-   Chen et al. proposed two metrics for bullet-level comparison based on CMPS scores [Che+19]
+  -   `\(\mathrm{CMPS_{max}}\)`, `\(\mathrm{\overline{CMPS}_{max}}\)`
+
+-   Another metric
+  -   `\(\mathrm{\overline{CMPS}_{diff}}\)`
+
+&lt;!-- --- --&gt;
+&lt;!--   --&gt;
+&lt;!-- ## Metrics  --&gt;
+
+&lt;!-- `\(\mathrm{CMPS_{max}}\)` --&gt;
+&lt;!-- -   the highest CMPS score obtained among all pairwise bullet signature comparisons --&gt;
+
+&lt;!-- In general, we assume each bullet has `\(n\)` land engravings (in our case `\(n=6\)`). Let `\(c_{ij}\)` denote the CMPS score of a comparison between bullet 1 land `\(i\)` and bullet 2 land `\(j\)`, for `\(i,j = 1, \dots, n\)`.  --&gt;
+
+&lt;!-- `$$\mathrm{CMPS_{max}} = \max_{i,j} c_{ij}$$` --&gt;
+
+---
+ 
+## Metrics 
+
+In general, we assume each bullet has `\(n\)` land engravings (in our case `\(n=6\)`). Let `\(c_{ij}\)` denote the CMPS score of a comparison between bullet 1 land `\(i\)` and bullet 2 land `\(j\)`, for `\(i,j = 1, \dots, n\)`. 
+
+
+
+-   `\(\mathrm{CMPS_{max}}\)`: the highest CMPS score obtained among all pairwise bullet signature comparisons
+
+-   `\(\mathrm{CMPS_{max}} = \max_{i,j} c_{ij}\)`
+
+---
+
+## Metrics
+
+Let `\(P_k\)` denote bullet land pairs in phase `\(k\)` for `\(k = 0, \dots, n-1\)`, and `\(P_k = \{ (i,j): i = 1, \dots, n ; j = (i + k) - n \cdot \unicode{x1D7D9}_{i + k &gt; n} \}\)`, where `\(\unicode{x1D7D9}_A\)` denotes an indicator function. For example, `\(P_1 = \{ (1,2), (2,3), (3,4), (4,5), (5,6), (6,1) \}\)` when `\(n = 6\)`.
+
+
+
+-   `\(\mathrm{\overline{CMPS}_{max}}\)`: the highest possible mean CMPS score of signature comparisons that are in the same phase
+
+-   `\(\mathrm{\overline{CMPS}_{max}} = \max_{k} \left[  \frac{1}{n} \sum_{(i,j) \in P_k} c_{ij}\right]\)`
+
+---
+ 
+## Metrics 
+
+Let `\(k^*\)` denote the phase that results in `\(\mathrm{\overline{CMPS}_{max}}\)`
+
+-   `\(\mathrm{\overline{CMPS}_{diff}}\)`: the difference between `\(\mathrm{\overline{CMPS}_{max}}\)` and the mean of all other CMPS scores
+
+-   `\(\mathrm{\overline{CMPS}_{diff}} = \left[  \frac{1}{n} \sum_{(i,j) \in P_{k^*}} c_{ij}\right] - \left[  \frac{1}{n(n-1)} \sum_{(i,j) \notin P_{k^*}} c_{ij}\right]\)`
+
+
+---
+ 
+## Metrics 
+
+.pull-left[
+The CMPS scores of all 36 pairwise bullet signatures comparisons
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+].pull-right[
+Calculation of different CMPS score metrics
+
+.small[
+`$$\mathrm{CMPS_{max}} =  \max_{i,j} c_{ij} = 17$$`
+
+`$$\mathrm{\overline{CMPS}_{max}} = \frac{1}{6} \sum_{(i,j) \in P_1} c_{ij} = 12.5$$`
+
+`$$\mathrm{\overline{CMPS}_{diff}} = \frac{1}{6} \sum_{(i,j) \in P_1} c_{ij} - \frac{1}{30} \sum_{(i,j) \notin P_1} c_{ij} = 10.97$$`
+]
+]  
+
+- one score for bullet level similarity
+
+
+---
+ 
+## Results
+
+Hamby set 252: 
+-   The James Hamby Consecutively Rifled Ruger Barrel Study [Bru98; HBT09; Ham+19]
+-   35 bullets, ten consecutively manufactured Ruger P-85 pistol barrels
+-   595 bullet level comparisons: 46 KM comparisons; 549 KNM comparisons
+
+
+
+
+
+
+
+
+
+
+---
+ 
+## Results
+
+Hamby set 252: 
+-   parameter setting: multi-peak inspection
+-   ` npeaks_set = 5`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+---
+ 
+## Results
+
+Hamby set 252: 
+-   parameter setting: multi-peak inspection with multi-segment lengths
+-   ` npeaks_set = c(5, 3, 1)`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+---
+ 
+## Evaluation
+
+Sum of squares ratio
+
+`$$V = \frac{\sum_k n_k (\bar{y}_{k.} - \bar{y}_{..})^2}{\sum_k \sum_l^{n_k} (y_{kl} - \bar{y}_{k.})^2 }$$`
+
+-   `\(k=2\)`, `\(n_1 = 46\)`, `\(n_2 = 549\)`
+-   `\(y_{kl}\)` - CMPS metric score
+-   quantifies the separation between the KM group and the KNM group
+
+---
+ 
+## Evaluation
+
+-   parameter setting: multi-peak inspection
+-   ` npeaks_set = 5`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+
+---
+ 
+## Evaluation
+
+-   parameter setting: multi-peak inspection with multi-segment lengths
+-   ` npeaks_set = c(5, 3, 1)`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.png" width="\textwidth" style="display: block; margin: auto;" /&gt;
+
+-   compare: score metrics, parameter settings
+
+---
+ 
+## Takeaways from Paper \#1
+
+-   An open-source implementation of the Congruent Matching Profile Segments (CMPS) algorithm: `cmpsR`
+
+-   A shiny app for bullet signature generation: `bulletInspectR`
+
+-   Proposed new metrics and an evaluation framework
+
+-   Demonstrated its effectiveness in bullet signature comparisons
+
+-   Reproduced the original results only qualitatively due to lack of data and executable code
+
+-   Our data and code are all publicly available
+
+---
+
+class: center, middle
+
+## One Model that Fits Them All: Psychometrics with Generalized Linear Mixed Effects Models
+
+#### Submitted to Visualization and Data Analysis 2024
+
+---
+
+## Brief summary
+
+-   [+22] provides a very good example of reproducible research
+
+-   Both data and code are provided
+
+-   [+22] built a two-stage model and concluded one of their variables of interest as insignificant
+
+-   We proposed to use a generalized linear mixed effects model which has more statistical power and found the statistical significance of that variable
+
+-   The re-analysis and new conclusion heavily relies on the efforts of [+22] for making their work reproducible
+
+-   A shiny app named `Model Buildr` was developed to assist researchers in connecting the two-stage modeling approach with the GLME modeling approach
+
+
+---
+
+class: center, middle
+
+## `ggpaintr`: Building Modularized Shiny Apps for Reactive Plotting
+
+#### To be submitted to *The Journal of Computational and Graphical Statistics*
+
+---
+
+## Brief summary
+
+-   `ggpaintr` is an R package for building shiny apps that have `ggplot2` functionalities for data visualization
+
+-   This is an attempt of developing tools that can facilitate reproducible research
+
+-   `ggpaintr` can build shiny apps via R expressions
+
+
+---
+ 
+# References
+
+AFTE Criteria for Identification Committee (1992). "Theory of
+identification, range striae comparison reports and modified glossary
+definitions". In: _AFTE Journal_ 24.3, pp. 336-340.
+
+Brundage, D. J. (1998). "The Identification of Consecutively Rifled Gun
+Barrels". In: _AFTE Journal_ 30.3, pp. 438-444.
+
+Chen, Z. et al. (2019). "Fired bullet signature correlation using the
+Congruent Matching Profile Segments (CMPS) method". In: _Forensic
+Science International_ 305, p. Article 109964, (10 pages). DOI:
+[&lt;https://doi.org/10.1016/j.forsciint.2019.109964&gt;](https://doi.org/%5Curl%7Bhttps%3A%2F%2Fdoi.org%2F10.1016%2Fj.forsciint.2019.109964%7D).
+
+Cleveland, W. S. et al. (1991). "Local regression models". In:
+_Statistical Models in S_. Ed. by J. M. Chambers and T. J. Hastie. Boca
+Raton, Florida: Chapman and Hall/CRC. Chap. 8, pp. 309-376.
+
+Hamby, J. E. et al. (2019). "A Worldwide Study of Bullets Fired From 10
+Consecutively Rifled 9MM RUGER Pistol Barrels—Analysis of Examiner
+Error Rate". In: _Journal of Forensic Sciences_ 64.2, pp. 551-557. DOI:
+[10.1111/1556-4029.13916](https://doi.org/10.1111%2F1556-4029.13916).
+
+Hamby, J. E. et al. (2009). "The Identification of Bullets Fired from
+10 Consecutively Rifled 9mm Ruger Pistol Barrels: A Research Project
+Involving 507 Participants from 20 Countries". In: _AFTE Journal_ 41.2,
+pp. 99-110.
+
+Hare, E. et al. (2017). "Automatic matching of bullet land
+impressions". In: _Ann. Appl. Stat._ 11.4, pp. 2332-2356. DOI:
+[10.1214/17-AOAS1080](https://doi.org/10.1214%2F17-AOAS1080).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
