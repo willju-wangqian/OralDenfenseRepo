@@ -117,18 +117,80 @@ class: center, middle
 
 ## Reproducibility: What
 
+-   The concept of **reproducibility** is actually not clearly defined `r Citep(myBib, c("Gundersen2021", "Peng2011", "RRS2019", "nistNISTGuidelines", "acmArtifactReview", "Samuel2021", "Zilberman2020"))`
+  
+  -   The National Academies of Sciences, Engineering, and Medicine `r Citep(myBib, "RRS2019")`: 
+  > "**Reproducibility** means computational reproducibility - obtaining consistent computational results using the same input data, computational steps, methods, code, and conditions of analysis. "
+  
+  -   Artifact Review and Badging `r Citep(myBib, "acmArtifactReview")`: 
+  > "**Reproducibility** - The measurement can be obtained with stated precision by a different team using the same measurement procedure, the same measuring system, under the same operating conditions, in the same or a different location on multiple trials."
+  
+  -   `r Citep(myBib, "Peng2011")`:
+  > A published data analysis is reproducible if the analytic data sets and the computer code used to create the data analysis are made available to others for independent study and analysis
 
 ---
 
 ## Reproducibility: Why
 
+-   Reproducibility is important to the community
+
+  -   "an attainable minimum standard for assessing the value of scientific claims" `r Citep(myBib, "Peng2011")`
+  
+  -   "an experimental result is not fully established unless it can be independently reproduced." `r Citep(myBib, "acmArtifactReview")`
+  
+  -   "a strong connection between openness and transparency and more reliable and trusted science" `r Citep(myBib, "RRS2019")`
+  
+  -   "validate experimental results, promote integrity of research, and accelerate follow up work" `r Citep(myBib, "Zilberman2020")`
+
+-   Reproducible research is important to those who do it `r Citep(myBib, "Alston2021")`
+
+  -   A by-product of careful attention to detail throught the research process
+  
+  -   Allows researchers to ensure that they can repeat the same analysis multiple times with the same results, at any point in that process
+
+
 ---
 
 ## Reproducibility: How
 
+-   Efforts from researchers
+
+  -   `r Citep(myBib, "RRS2019")`: "To help ensure the reproducibility of computational results, researchers should convey clear, specific, and complete information about data, code, models, and computational methods and analysis that support their published results."
+  
+  -   "A three-step framework for conducting reproducible research" `r Citep(myBib, "Alston2021")`
+  
+  -   Using tools that facilitate reproducible research `r Citep(myBib, c("Lasser2020", "Schwab2000"))`
+  
+-   Efforts from funding agencies and organizations
+
+  -   "consider investing in research and development of opensource, usable tools and infrastructure that support reproducibility for a broad range of studies across different domains in a seamless fashion" `r Citep(myBib, "RRS2019")`
+  
+-   Efforts from journals and conferences
+
+
 ---
 
 ## Reproducibility: Challenges
+
+-   The Reproducibility Crisis: researchers find difficulty in reproducing published results `r Citep(myBib, c("Samuel2021", "Raghupathi2022", "Xiong2022", "Samota2021"))`
+
+-   Technological change / dependency hell `r Citep(myBib, c("Zheng2021", "Boettiger2015", "xie2014implementing", "Alston2021"))`
+  
+  -   Operational systems, hardware, and software are continuously changing
+  
+-   Complexity
+  
+  -   Knowledge about the field and the tools required to reproduce the results
+  
+-   Human error
+
+-   Intellectual property rights
+
+-   Challenges introduced by the review process
+
+  -   Providing data, code, and instructions might break review anonymity `r Citep(myBib, c("Bajpai2017"))`
+
+
 
 ---
 
