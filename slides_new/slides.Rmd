@@ -118,23 +118,37 @@ class: center, middle
 ## Reproducibility: What
 
 -   The concept of **reproducibility** is actually not clearly defined `r Citep(myBib, c("Gundersen2021", "Peng2011", "RRS2019", "nistNISTGuidelines", "acmArtifactReview", "Samuel2021", "Zilberman2020"))`
-  
-  -   The National Academies of Sciences, Engineering, and Medicine `r Citep(myBib, "RRS2019")`: 
-  > "**Reproducibility** means computational reproducibility - obtaining consistent computational results using the same input data, computational steps, methods, code, and conditions of analysis. "
-  
-  -   Artifact Review and Badging `r Citep(myBib, "acmArtifactReview")`: 
-  > "**Reproducibility** - The measurement can be obtained with stated precision by a different team using the same measurement procedure, the same measuring system, under the same operating conditions, in the same or a different location on multiple trials."
-  
+
   -   `r Citep(myBib, "Peng2011")`:
   > A published data analysis is reproducible if the analytic data sets and the computer code used to create the data analysis are made available to others for independent study and analysis
+  
+  -   Artifact Review and Badging of Association for Computing Machinery  `r Citep(myBib, "acmArtifactReview")`: 
+  > "**Reproducibility** - The measurement can be obtained with stated precision by a different team using the same measurement procedure, the same measuring system, under the same operating conditions, in the same or a different location on multiple trials."
+  
+---
 
+## Reproducibility: What
+
+-   The concept of **reproducibility** is actually not clearly defined `r Citep(myBib, c("Gundersen2021", "Peng2011", "RRS2019", "nistNISTGuidelines", "acmArtifactReview", "Samuel2021", "Zilberman2020"))`
+
+  -   The National Academies of Sciences, Engineering, and Medicine `r Citep(myBib, "RRS2019")`: 
+  > "**Reproducibility** means computational reproducibility - obtaining consistent computational results using the same input data, computational steps, methods, code, and conditions of analysis. "
+
+-   Reproducibility
+
+  -   Artifacts provided by the authors of the original results
+  
+  -   A different team
+  
+  -   Obtain consistent (strong/weak) results
+  
 ---
 
 ## Reproducibility: Why
 
 -   Reproducibility is important to the community
 
-  -   "an attainable minimum standard for assessing the value of scientific claims" `r Citep(myBib, "Peng2011")`
+  -   "Replication is the ultimate standard by which scientific claims are judged." But full replication can be very challenging. So reproducibility becomes "an attainable minimum standard for assessing the value of scientific claims" `r Citep(myBib, "Peng2011")`
   
   -   "an experimental result is not fully established unless it can be independently reproduced." `r Citep(myBib, "acmArtifactReview")`
   
@@ -158,15 +172,31 @@ class: center, middle
   -   `r Citep(myBib, "RRS2019")`: "To help ensure the reproducibility of computational results, researchers should convey clear, specific, and complete information about data, code, models, and computational methods and analysis that support their published results."
   
   -   "A three-step framework for conducting reproducible research" `r Citep(myBib, "Alston2021")`
+    
+      +   Before data analysis: data storage and organization
+    
+      +   During analysis: best coding practices
+    
+      +   After data analysis: finalizing results and sharing
   
   -   Using tools that facilitate reproducible research `r Citep(myBib, c("Lasser2020", "Schwab2000"))`
+    
+      +   "executable paper"
   
+  -   [Reproducibility checklist](https://aaai.org/conference/aaai/aaai-23/reproducibility-checklist/) (by Association for the advancement of Artificial Intelligence and other organizations)
+
+
+---
+
+## Reproducibility: How
+
 -   Efforts from funding agencies and organizations
 
   -   "consider investing in research and development of opensource, usable tools and infrastructure that support reproducibility for a broad range of studies across different domains in a seamless fashion" `r Citep(myBib, "RRS2019")`
   
 -   Efforts from journals and conferences
 
+  -   "Journals should consider ways to ensure computational reproducibility for publications that make claims based on computations, to the extent ethically and legally possible." `r Citep(myBib, "RRS2019")`
 
 ---
 
@@ -762,7 +792,7 @@ p.result3_252
  
 ## Evaluation
 
-Sum of squares ratio
+**Sum of squares ratio**
 
 $$V = \frac{\sum_k n_k (\bar{y}_{k.} - \bar{y}_{..})^2}{\sum_k \sum_l^{n_k} (y_{kl} - \bar{y}_{k.})^2 }$$
 
@@ -854,14 +884,81 @@ class: center, middle
 
 -   `ggpaintr` can build shiny apps via R expressions
 
+---
+
+## Timeline
+
+-   Dec 2023:
+
+  -   Answer reviewers' questions regarding paper 2
+  -   Complete the literature review 
+
+-   Feb 2024:
+
+  -   Complete paper 3 and its submission
+  
+-   March/April 2024:
+
+  -   Complete thesis
+  
+-   May/June 2024:
+
+  -   Final oral defense
+
+
 
 ---
- 
+
 # References
 
 ```{r refs1, echo=FALSE, results="asis"}
 # RefManageR::NoCite(myBib,1:5)
 RefManageR::PrintBibliography(myBib)
+```
+
+---
+
+# References
+
+```{r refs2, echo=FALSE, results="asis"}
+# RefManageR::NoCite(myBib,1:5)
+# RefManageR::PrintBibliography(myBib,start = 7,end = 11)
+```
+
+---
+
+# References
+
+```{r refs3, echo=FALSE, results="asis"}
+# RefManageR::NoCite(myBib,1:5)
+# RefManageR::PrintBibliography(myBib,start = 11,end = 15)
+```
+
+---
+
+# References
+
+```{r refs4, echo=FALSE, results="asis"}
+# RefManageR::NoCite(myBib,1:5)
+# RefManageR::PrintBibliography(myBib,start = 16,end = 21)
+```
+
+---
+
+# References
+
+```{r refs5, echo=FALSE, results="asis"}
+# RefManageR::NoCite(myBib,1:5)
+# RefManageR::PrintBibliography(myBib,start = 22,end = 26)
+```
+
+---
+
+# References
+
+```{r refs6, echo=FALSE, results="asis"}
+# RefManageR::NoCite(myBib,1:5)
+# RefManageR::PrintBibliography(myBib,start = 27,end = 28)
 ```
 
 
