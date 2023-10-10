@@ -68,8 +68,18 @@ knitr::opts_chunk$set(echo = TRUE,
                       collapse = TRUE,
                       comment = "#>",
                       out.width = "\\textwidth",
-                      dpi = 1000)
+                      dpi = 1000,
+                      message = FALSE,
+                      warning = FALSE)
 ```
+
+---
+
+## Acknowledgements
+
+### Funding statement
+
+This work was partially funded by the Center for Statistics and Applications in Forensic Evidence (CSAFE) through Cooperative Agreement 70NANB20H019 between NIST and Iowa State University, which includes activities carried out at Carnegie Mellon University, Duke University, University of California Irvine, University of Virginia, West Virginia University, University of Pennsylvania, Swarthmore College and University of Nebraska, Lincoln.
 
 ---
 
@@ -84,26 +94,28 @@ knitr::opts_chunk$set(echo = TRUE,
   - Summer 2021: received M.Sc. in Statistics
   - Summer 2021: passed the written preliminary exam
   
-- Machine Learning Intern at Adobe
+- Machine Learning Engineer Intern at Adobe
 
-  - Summer 2022
-  - Summer 2023
+  - Summer 2022 and summer 2023
+  - Customer lifetime value predictions based on user attributes, engagement data, and subscription information
   
-- Future: Hope to work as a Data Scientist or Machine Learning Engineer 
+- Future plan
+  - Open to both industry and academia
+  - Data Scientist or Machine Learning Engineer 
 
 ---
 
 # Outline
 
-- **Introduction** Reproducibility
+- **Introduction** Reproducibility: What, Why, How, and Challenges
 
-- **Paper \#1** An Open-Source Implementation of the CMPS Algorithm for Assessing Similarity of Bullets
+- **Paper \#1 (focus)** An Open-Source Implementation of the CMPS Algorithm for Assessing Similarity of Bullets
 
-- **Paper \#2** One Model that Fits Them All: Psychometrics with Generalized Linear Mixed Effects Models
+- **Paper \#2 (briefly)** One Model that Fits Them All: Psychometrics with Generalized Linear Mixed Effects Models
 
-- **Paper \#3** `ggpaintr`: Building Modularized Shiny Apps for Reactive Plotting
+- **Paper \#3 (briefly)** `ggpaintr`: Building Modularized Shiny Apps for Reactive Plotting
 
-- **Conclusions**
+- **Timeline**
 
 ---
 
@@ -111,7 +123,7 @@ class: center, middle
 
 # Introduction
 
-## Reproducibility: What, Why, How
+## Reproducibility: What, Why, How, and Challenges
 
 ---
 
@@ -138,7 +150,7 @@ class: center, middle
 
   -   Artifacts provided by the authors of the original results
   
-  -   A different team
+  -   Entities that reproduce the results
   
   -   Obtain consistent (strong/weak) results
   
@@ -152,7 +164,7 @@ class: center, middle
   
   -   "an experimental result is not fully established unless it can be independently reproduced." `r Citep(myBib, "acmArtifactReview")`
   
-  -   "a strong connection between openness and transparency and more reliable and trusted science" `r Citep(myBib, "RRS2019")`
+  -   "a strong connection between openness and transparency and more reliable and trusted science" exists.`r Citep(myBib, "RRS2019")` And reproducibility is a key component of openness and transparency.
   
   -   "validate experimental results, promote integrity of research, and accelerate follow up work" `r Citep(myBib, "Zilberman2020")`
 
@@ -170,20 +182,32 @@ class: center, middle
 -   Efforts from researchers
 
   -   `r Citep(myBib, "RRS2019")`: "To help ensure the reproducibility of computational results, researchers should convey clear, specific, and complete information about data, code, models, and computational methods and analysis that support their published results."
-  
-  -   "A three-step framework for conducting reproducible research" `r Citep(myBib, "Alston2021")`
-    
-      +   Before data analysis: data storage and organization
-    
-      +   During analysis: best coding practices
-    
-      +   After data analysis: finalizing results and sharing
+
+  -   [Reproducibility checklist](https://aaai.org/conference/aaai/aaai-23/reproducibility-checklist/) (by Association for the advancement of Artificial Intelligence and other organizations)
   
   -   Using tools that facilitate reproducible research `r Citep(myBib, c("Lasser2020", "Schwab2000"))`
     
       +   "executable paper"
-  
-  -   [Reproducibility checklist](https://aaai.org/conference/aaai/aaai-23/reproducibility-checklist/) (by Association for the advancement of Artificial Intelligence and other organizations)
+
+---
+
+## Reproducibility: How
+
+-   Efforts from researchers
+
+  -   "A three-step framework for conducting reproducible research" `r Citep(myBib, "Alston2021")`
+    
+      +   Before data analysis: data storage and organization
+      
+          -   Backup; flexible, portable, and tidy data format; metadata; file structure; version control
+    
+      +   During analysis: best coding practices
+      
+          -   scripts; comments; coding style; standalone and portable computing environment
+    
+      +   After data analysis: finalizing results and sharing
+      
+          -   figures generated by code; dynamic documents; accessibility; 
 
 
 ---
@@ -203,6 +227,21 @@ class: center, middle
 ## Reproducibility: Challenges
 
 -   The Reproducibility Crisis: researchers find difficulty in reproducing published results `r Citep(myBib, c("Samuel2021", "Raghupathi2022", "Xiong2022", "Samota2021"))`
+
+  -   An empirical study in 2021:
+
+      -   "The results present that 54% of the participants had trouble reproducing other’s published results and only 5% of the respondents were contacted regarding a problem in reproducing their published results." `r Citep(myBib, c("Samuel2021"))`
+  
+      -   "Insufficient metadata, lack of publicly available data, and incomplete information in study methods are considered to be the main reasons for poor reproducibility." `r Citep(myBib, c("Samuel2021"))`
+  
+  -   An empirical study in 2022:
+  
+      -   "Approximately 100 randomly selected research papers from the International Conference on Information Systems series, for the year 2019, are surveyed. Our findings suggest that none of the papers documented all the variables." (Twenty-five variables traditionally utilized to document reproducibility are identified) `r Citep(myBib, c("Raghupathi2022"))`
+  
+  
+---
+
+## Reproducibility: Challenges
 
 -   Technological change / dependency hell `r Citep(myBib, c("Zheng2021", "Boettiger2015", "xie2014implementing", "Alston2021"))`
   
@@ -258,12 +297,26 @@ class: center, middle
 
 **Firearm Examination - Comparison of bullets**
 
+-   Were two bullets fired from the same gun barrel?
+
 -   Land-engraved striation marks
 
--   Visual comparison: comparison microscope, professional skills
+-   Visual comparison
+
+  -   comparison microscope, professional skills
+  -   criticized for its lack of objectivity and the associated problem of determining valid error rates
+
+.img100[![](photos/barrel_bullet_ps.png)]
+
+---
+
+## Background
+
+**Firearm Examination - Comparison of bullets**
 
 -   Bullet signatures
 .img100[![](photos/barrel_bullet_ps.png)]
+
 
 ---
 
@@ -296,7 +349,7 @@ class: center, middle
 ## Background
 
 **Examples of bullet signature**
--   two bullets fired from the same Ruger p-85 pistal barrel
+-   two bullets fired from the same Ruger p-85 pistal barrel (each bullet has six land-engraved areas, resulting in six bullet signatures)
 
 -   known match comparison
 
@@ -362,6 +415,31 @@ plot.sig
 
 .footer[plot cited from Chen et al. 2019]
 
+---
+ 
+## CMPS algorithm
+  
+-   Congruent registration position
+  -   Each basis segment results in five positions where the cross-correlation curve has the top five highest peaks
+  -   Example:
+  >   basis segment 1: **0**, 100, 200, 300, 400  
+      basis segment 2: **0**, 150, 230, 275, 412  
+      basis segment 3: **0**, 125, 215, 315, 468  
+      basis segment 4: 24, 78, 158, 245, 378
+  -   **0** (no shift) is the best registration position in this example since 3 out of 4 basis segments vote for it
+  
+
+---
+ 
+## CMPS algorithm
+
+-   Congruent registration position
+  -   Based on cross-correlation values
+  -   Identified as the "best" registration position by the majority of basis segments (position 0 in the plot)
+
+.img100[![](images/cmps_overview.jpg)]
+
+.footer[plot cited from Chen et al. 2019]
 
 ---
  
@@ -375,6 +453,7 @@ plot.sig
 .img100[![](images/cmps_overview.jpg)]
 
 .footer[plot cited from Chen et al. 2019]
+
 
 ---
  
@@ -424,7 +503,7 @@ extract_feature_cmps(
   y,
   seg_length = 50,
   Tx = 25,
-   npeaks_set = c(5, 3, 1),
+  npeaks_set = c(5, 3, 1),
   include = NULL,
   outlength = NULL
 )
@@ -506,6 +585,43 @@ cmps_without_multi_scale$CMPS_score
 cmps_with_multi_scale$CMPS_score
 ```
 
+---
+ 
+## Implementation - Examples
+
+multi-peak inspection with multi-segment lengths strategy
+
+-   Basis segment and its enlarged versions are used to generate the cross-correlation curves
+
+-   By default, the scale level 1 is the original length; scale level 2 will double the length
+
+-   Increasing the basis segment length can reduce the number of false positive peaks in the cross-correlation curve
+
+-   `npeaks_set = c(5,3,1)`: each basis segment identifies 5 peaks at scale level 1; 3 peaks at scale level 2; 1 peak at scale level 1
+
+---
+ 
+## Implementation - Examples
+
+```{r, echo=FALSE, warning=FALSE, fig.height=5}
+seg_plot <- cmps_segment_plot(
+  cmps_with_multi_scale, 
+  seg_idx = 7
+)
+
+library(ggpubr)
+
+ggarrange(
+  plotlist = 
+    unlist(seg_plot, 
+           recursive = FALSE),
+  ncol = 2, 
+  nrow = 3)
+
+```
+
+
+
 
 ---
  
@@ -582,17 +698,35 @@ full.comp <- dframe %>% ggplot(aes(x = landA, y = landB, fill = cmps_score)) +
 full.comp
 ```
 
--   each bullet has 6 land engravings, providing 6 bullet signatures
+-   Each bullet has 6 land engravings, providing 6 bullet signatures
 -   36 pairwise land-by-land comparisons in total
+-   Default parameters were used (with multi-segment lengths strategy)
+
+---
+ 
+## Implementation
+
+Full comparison of the two bullets in `CMPS::bullets`
+
+```{r, echo=FALSE, fig.height=3}
+plot.sig
+```
+
+```{r, echo=FALSE}
+c(3, 17, 14, 10, 15, 16)
+```
+
 
 ---
  
 ## Metrics 
 
+-   Signature-level comparisons -> bullet-level comparisons
+
 -   Chen et al. proposed two metrics for bullet-level comparison based on CMPS scores `r Citep(myBib, "cmps")`
   -   $\mathrm{CMPS_{max}}$, $\mathrm{\overline{CMPS}_{max}}$
 
--   Another metric
+-   Another metric proposed by us
   -   $\mathrm{\overline{CMPS}_{diff}}$
 
 <!-- --- -->
@@ -622,9 +756,11 @@ In general, we assume each bullet has $n$ land engravings (in our case $n=6$). L
 
 ## Metrics
 
-Let $P_k$ denote bullet land pairs in phase $k$ for $k = 0, \dots, n-1$, and $P_k = \{ (i,j): i = 1, \dots, n ; j = (i + k) - n \cdot \unicode{x1D7D9}_{i + k > n} \}$, where $\unicode{x1D7D9}_A$ denotes an indicator function. For example, $P_1 = \{ (1,2), (2,3), (3,4), (4,5), (5,6), (6,1) \}$ when $n = 6$.
+Let $P_k$ denote bullet land pairs in phase $k$ for $k = 0, \dots, n-1$, and $P_k = \{ (i,j): i = 1, \dots, n ; j = (i + k) - n \cdot \unicode{x1D7D9}_{i + k > n} \}$, where $\unicode{x1D7D9}_A$ denotes an indicator function. 
 
-
+-   For example, when $n = 6$  
+    $P_0 = \{ (1,1), (2,2), (3,3), (4,4), (5,5), (6,6) \}$,  
+    $P_1 = \{ (1,2), (2,3), (3,4), (4,5), (5,6), (6,1) \}$
 
 -   $\mathrm{\overline{CMPS}_{max}}$: the highest possible mean CMPS score of signature comparisons that are in the same phase
 
@@ -853,7 +989,7 @@ class: center, middle
 
 ## Brief summary
 
--   `r Citep(myBib, c("JNDVIS21"))` provides a very good example of reproducible research
+-   `r Citep(myBib, c("JNDVIS21"))` is a very good example of reproducible research
 
 -   Both data and code are provided
 
@@ -884,6 +1020,14 @@ class: center, middle
 
 -   `ggpaintr` can build shiny apps via R expressions
 
+  -   This R expression specifies the desired components/elements of the shiny app
+  
+  -   Server side of the shiny app is mostly handled automatically by the package
+  
+  -   UI elements of the shiny app are generated by the package and arranged by the user
+  
+-   Plots/visualizations as final deliverables -> shiny apps + meta data as final deliverables
+
 ---
 
 ## Timeline
@@ -913,53 +1057,10 @@ class: center, middle
 
 ```{r refs1, echo=FALSE, results="asis"}
 # RefManageR::NoCite(myBib,1:5)
-RefManageR::PrintBibliography(myBib)
+# RefManageR::PrintBibliography(myBib)
 ```
 
 ---
-
-# References
-
-```{r refs2, echo=FALSE, results="asis"}
-# RefManageR::NoCite(myBib,1:5)
-# RefManageR::PrintBibliography(myBib,start = 7,end = 11)
-```
-
----
-
-# References
-
-```{r refs3, echo=FALSE, results="asis"}
-# RefManageR::NoCite(myBib,1:5)
-# RefManageR::PrintBibliography(myBib,start = 11,end = 15)
-```
-
----
-
-# References
-
-```{r refs4, echo=FALSE, results="asis"}
-# RefManageR::NoCite(myBib,1:5)
-# RefManageR::PrintBibliography(myBib,start = 16,end = 21)
-```
-
----
-
-# References
-
-```{r refs5, echo=FALSE, results="asis"}
-# RefManageR::NoCite(myBib,1:5)
-# RefManageR::PrintBibliography(myBib,start = 22,end = 26)
-```
-
----
-
-# References
-
-```{r refs6, echo=FALSE, results="asis"}
-# RefManageR::NoCite(myBib,1:5)
-# RefManageR::PrintBibliography(myBib,start = 27,end = 28)
-```
 
 
 
